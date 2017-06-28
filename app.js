@@ -18,7 +18,9 @@ function Game() {
      this.student.show();
      this.student.move();
      this.assignControlsToKeys();
-     this.displayItems()
+     setInterval(this.createItem.bind(this), 4000)
+    setInterval(this.displayItems.bind(this), 200)
+
  }
 
  Game.prototype.assignControlsToKeys = function() {
@@ -41,21 +43,9 @@ function Game() {
  }
 
  Game.prototype.displayItems = function(){
-     this.createItem();
-
-     var counter = 0;
-
-     this.recursiveFunction = function(){
-         if(counter < this.items.length){
-            this.items[counter].move()
-            counter++;
-            this.recursiveFunction();
-         } else {
-            counter = 0;
-            setTimeout(this.recursiveFunction.bind(this), 4000);
-         }  
+     for(var i = 0; i < this.items.length; i++){
+        this.items[i].move();
      }
-     this.recursiveFunction()
  }
 
 
@@ -69,12 +59,12 @@ Student.prototype.move = function () {
     case "left":
     this.position.column -= 1
     this.show()
-    setTimeout(this.move.bind(this), 1000)
+    setTimeout(this.move.bind(this), 100)
       break;
       case "right":
       this.position.column += 1
       this.show()
-    setTimeout(this.move.bind(this), 1000)
+    setTimeout(this.move.bind(this), 100)
     break;
   }
 };
