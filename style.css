@@ -1,22 +1,38 @@
+body {
+   background-image: url('./imgs/stars.gif')
+
+}
+
 #board {
    height: 800px;
    margin: 30px auto;
    width: 800px;
-   background-color: black;
+   border: 0.5px solid slategrey;
+   /*background-image: url('./imgs/stars.gif')*/
  }
 
  .cell {
    float: left;
-   height: 16px;
-   width: 16px;
+   height: 32px;
+   width: 32px;
    box-sizing: border-box;
-   border: 1px solid rgba(255, 255, 255, 0.2);
+   /*border: 1px solid rgba(255, 255, 255, 0.2);*/
  }
 
- .student {
-   background-color: red;
+ .player {
+   background-image: url("./imgs/player.png");
+   background-size: cover; 
+   z-index: 1
  }
 
-.item {
-  background-color: yellow;
+.rock {
+   background-image: url("./imgs/rock.png");
+    background-size: cover; 
+
+}
+
+.laser {
+  background-image: url("./imgs/laser.png");
+  background-size: cover; 
+
 }
