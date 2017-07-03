@@ -36,3 +36,9 @@ body {
   background-size: cover; 
 
 }
+
+.explosion {
+  background-image: url("./imgs/explosion.png");
+  background-size: cover; 
+
+}

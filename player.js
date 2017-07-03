@@ -1,6 +1,7 @@
 function Player() {
   this.direction = "left";
   this.position = { row: 23, column: 13 };
+  this.laserShooted = [];
 
   $(document).on('keydown',function(e){
     switch (e.keyCode) {
@@ -45,5 +46,14 @@ Player.prototype.goLeft = function() {
 
 Player.prototype.shootLaser = function(){
   var laser  = new Laser(this.position.column);
+  this.laserShooted.push(laser)
   setInterval(laser.move.bind(laser), 100)
+}
+
+Player.prototype.checkRocksToRemove = function(){
+  this.laserShooted.forEach(function(laser){
+    if(laser.position.row < 0){
+      laser = null;
+    }
+  })
 }
