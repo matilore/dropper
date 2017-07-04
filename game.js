@@ -69,21 +69,17 @@ Game.prototype.checkImpact = function(){
                 if(rock.position.row === laser.position.row && rock.position.column === laser.position.column){
                   $(this.selector(rock.position.row, rock)).addClass('explosion')
                   rock.impacted = true
-                  setTimeout(function(){
                     if(rock.impacted == true){
                       clearInterval(rock.interval);
+                     setTimeout(function(){
                       console.log('if rock impacted')
                       var indexRock = this.rocks.indexOf(rock)
                       this.rocks.splice(indexRock, 1);
-                      console.log(this.rocks);
-                      console.log(rock.position)
                       $(this.selector(rock.position.row, rock)).removeClass('rock');
-                      $(this.selector(rock.position.row - 1, rock)).removeClass('rock');
-
-
-                      $(this.selector(rock.position.row-1, rock)).removeClass('explosion');
-                    }
-                  }.bind(this), 200)
+                      $(this.selector(rock.position.row, rock)).removeClass('explosion');
+                      rock = null;
+                    }.bind(this), 200)
+                }
                 }
               }.bind(this))
       }.bind(this))
