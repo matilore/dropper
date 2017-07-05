@@ -60,20 +60,17 @@ Game.prototype.moveRock = function (rock) {
 Game.prototype.checkImpact = function(){
 
       this.rocks.forEach(function(rock){
-        console.log(rock.position)
 
-
-          //  if(rock.position.row === this.player.position.row && rock.position.column === this.player.position.column){
-          //     $(this.selector(rock.position.row, rock)).addClass('explosion')
-          //     setTimeout(function(){
-          //       $(this.selector(rock.position.row, rock)).removeClass('explosion');
-          //   }.bind(this), 100)
-          //     rock.impacted = true;
-          // }
+           if(rock.position.row === this.player.position.row && rock.position.column === this.player.position.column){
+              $(this.selector(rock.position.row, rock)).addClass('explosion')
+              setTimeout(function(){
+                $(this.selector(rock.position.row, rock)).removeClass('explosion');
+            }.bind(this), 100)
+              rock.impacted = true;
+          }
 
         this.player.laserShooted.forEach(function(laser){
                 if(rock.position.row === laser.position.row && rock.position.column === laser.position.column){
-                  
                   $(this.selector(rock.position.row, rock)).addClass('explosion')
                   rock.impacted = true
                     if(rock.impacted == true){

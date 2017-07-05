@@ -1,5 +1,5 @@
 function Player() {
-  this.direction = "left";
+  this.direction = "";
   this.position = { row: 23, column: 13 };
   this.laserShooted = [];
 
@@ -36,11 +36,11 @@ Player.prototype.goLeft = function() {
  };
 
  Player.prototype.show = function() {
-   if($('.player').hasClass('right')){
-      $('.player').removeClass('right')
-     } else if($('.player').hasClass('left')){
-      $('.player').removeClass('left')
-     }
+  //  if($('.player').hasClass('right')){
+  //     $('.player').removeClass('right')
+  //    } else if($('.player').hasClass('left')){
+  //     $('.player').removeClass('left')
+  //    }
      $('.player').removeClass('player');
      
      var selector = '[data-row=' + this.position.row + ']' +
@@ -48,6 +48,7 @@ Player.prototype.goLeft = function() {
 
       $(selector).addClass('player');
       $(selector).addClass(this.direction);
+      setTimeout(function(){$(selector).removeClass(this.direction)}.bind(this), 500);
   };
 
 
