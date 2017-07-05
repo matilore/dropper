@@ -17,8 +17,8 @@ function Game() {
     this.player.show();
     this.player.move();
     this.assignControlsToKeys();
-    setInterval(this.createRock.bind(this), 5000)
-    setInterval(this.checkImpact.bind(this), 20);
+    setInterval(this.createRock.bind(this), 3000)
+    setInterval(this.checkImpact.bind(this), 10);
 
 
  }
@@ -38,9 +38,11 @@ function Game() {
  };
 
  Game.prototype.createRock = function(){
-    var rock = new Rock()
+      var rock = new Rock()
+     rock.interval = setInterval(function(){
      this.rocks.push(rock);
-     rock.interval = setInterval(this.moveRock.bind(this, rock), 200)
+     this.moveRock(rock)
+     }.bind(this), 200);
  }
 
 Game.prototype.selector = function(row = rock.position.row, rock){
@@ -56,30 +58,34 @@ Game.prototype.moveRock = function (rock) {
 
 
 Game.prototype.checkImpact = function(){
-      //  if(rock.position.row === this.player.position.row && rock.position.column === this.player.position.column){
-      //     $(this.selector(rock.position.row, rock)).addClass('explosion')
-      //     setTimeout(function(){
-      //       $(this.selector(rock.position.row, rock)).removeClass('explosion');
-      //   }.bind(this), 100)
-      //     rock.impacted = true;
-      //  }
 
       this.rocks.forEach(function(rock){
+        console.log(rock.position)
+
+
+          //  if(rock.position.row === this.player.position.row && rock.position.column === this.player.position.column){
+          //     $(this.selector(rock.position.row, rock)).addClass('explosion')
+          //     setTimeout(function(){
+          //       $(this.selector(rock.position.row, rock)).removeClass('explosion');
+          //   }.bind(this), 100)
+          //     rock.impacted = true;
+          // }
+
         this.player.laserShooted.forEach(function(laser){
                 if(rock.position.row === laser.position.row && rock.position.column === laser.position.column){
+                  
                   $(this.selector(rock.position.row, rock)).addClass('explosion')
                   rock.impacted = true
                     if(rock.impacted == true){
                       clearInterval(rock.interval);
                      setTimeout(function(){
-                      console.log('if rock impacted')
                       var indexRock = this.rocks.indexOf(rock)
                       this.rocks.splice(indexRock, 1);
                       $(this.selector(rock.position.row, rock)).removeClass('rock');
                       $(this.selector(rock.position.row, rock)).removeClass('explosion');
                       rock = null;
                     }.bind(this), 200)
-                }
+                  }
                 }
               }.bind(this))
       }.bind(this))

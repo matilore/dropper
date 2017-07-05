@@ -42,3 +42,25 @@ body {
   background-size: cover; 
 
 }
+
+.player .left{
+  -webkit-animation:left;
+  animation: left 1s;
+  animation-duration: .1s;
+}
+
+.player .right{
+  -webkit-animation:right;
+  animation: right 1s;
+  animation-duration: .1s;
+}
+
+
+@keyframes right{
+    from { background-position: left  -20px}
+	  to { background-position: left  20px}
+}
+@keyframes left{
+    from { background-position: right  20px}
+	  to { background-position: right  -20px}
+}
