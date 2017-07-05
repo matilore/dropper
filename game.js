@@ -63,18 +63,18 @@ Game.prototype.checkImpact = function(){
 
            if(rock.position.row === this.player.position.row && rock.position.column === this.player.position.column){
               $(this.selector(rock.position.row, rock)).addClass('explosion')
-              setTimeout(function(){
-                $(this.selector(rock.position.row, rock)).removeClass('explosion');
-            }.bind(this), 100)
-              rock.impacted = true;
-          }
+                rock.impacted = true;
+            }
 
         this.player.laserShooted.forEach(function(laser){
                 if(rock.position.row === laser.position.row && rock.position.column === laser.position.column){
                   $(this.selector(rock.position.row, rock)).addClass('explosion')
                   rock.impacted = true
-                    if(rock.impacted == true){
-                      clearInterval(rock.interval);
+                }
+              }.bind(this))
+
+                if(rock.impacted == true){
+                    clearInterval(rock.interval);
                      setTimeout(function(){
                       var indexRock = this.rocks.indexOf(rock)
                       this.rocks.splice(indexRock, 1);
@@ -83,8 +83,6 @@ Game.prototype.checkImpact = function(){
                       rock = null;
                     }.bind(this), 200)
                   }
-                }
-              }.bind(this))
       }.bind(this))
        
 }
