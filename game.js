@@ -17,8 +17,8 @@ function Game() {
     this.player.show();
     this.player.move();
     this.assignControlsToKeys();
-    setInterval(this.createRock.bind(this), 3000)
-    setInterval(this.checkImpact.bind(this), 10);
+    setInterval(this.createRock.bind(this), 10000)
+    setInterval(this.checkRockToRemove.bind(this), 3);
 
 
  }
@@ -42,7 +42,7 @@ function Game() {
      rock.interval = setInterval(function(){
      this.rocks.push(rock);
      this.moveRock(rock)
-     }.bind(this), 200);
+    }.bind(this), 200);
  }
 
 Game.prototype.selector = function(row = rock.position.row, rock){
@@ -56,14 +56,34 @@ Game.prototype.moveRock = function (rock) {
 };
 
 
+Game.prototype.removeAfterImpact = function(rock){
+    clearInterval(rock.interval);
+    setTimeout(function(){
+    var indexRock = this.rocks.indexOf(rock)
+    this.rocks.splice(indexRock, 1);
+    $(this.selector(rock.position.row, rock)).removeClass('rock');
+    $(this.selector(rock.position.row, rock)).removeClass('explosion');
+    rock = null;
+    }.bind(this), 200)
+}
 
-Game.prototype.checkImpact = function(){
+Game.prototype.removeAfterOutOfGrid = function(rock){
+    var indexRock = this.rocks.indexOf(rock)
+    this.rocks.splice(indexRock, 1);
+    rock = null;
+}
+
+
+Game.prototype.checkRockToRemove = function(){
 
       this.rocks.forEach(function(rock){
-
            if(rock.position.row === this.player.position.row && rock.position.column === this.player.position.column){
               $(this.selector(rock.position.row, rock)).addClass('explosion')
                 rock.impacted = true;
+            }
+
+            if(rock.position.row > 24){
+                rock.outOfGrid = true;
             }
 
         this.player.laserShooted.forEach(function(laser){
@@ -73,16 +93,10 @@ Game.prototype.checkImpact = function(){
                 }
               }.bind(this))
 
-                if(rock.impacted == true){
-                    clearInterval(rock.interval);
-                     setTimeout(function(){
-                      var indexRock = this.rocks.indexOf(rock)
-                      this.rocks.splice(indexRock, 1);
-                      $(this.selector(rock.position.row, rock)).removeClass('rock');
-                      $(this.selector(rock.position.row, rock)).removeClass('explosion');
-                      rock = null;
-                    }.bind(this), 200)
-                  }
-      }.bind(this))
-       
+        if(rock.impacted == true){
+           this.removeAfterImpact(rock);  
+        } else if (rock.outOfGrid === true){
+          this.removeAfterOutOfGrid(rock);
+        }
+      }.bind(this));
 }
