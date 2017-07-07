@@ -17,7 +17,7 @@ function Game() {
     this.player.show();
     this.player.move();
     this.assignControlsToKeys();
-    setInterval(this.createRock.bind(this), 10000)
+    setInterval(this.createRock.bind(this), 4000)
     setInterval(this.checkRockToRemove.bind(this), 3);
 
 
@@ -73,6 +73,14 @@ Game.prototype.removeAfterOutOfGrid = function(rock){
     rock = null;
 }
 
+Game.prototype.gameOver = function(){
+  $('#board').empty();
+  $('#board').removeClass('scrolling')
+  let gameOverDiv = $('<div>').attr('id', 'gameOver').html('<h1>Game Over</h1>')
+  $('#board').append(gameOverDiv);
+  $('<audio src="audio/game_over.mp3"></audio>').get(0).play()
+}
+
 
 Game.prototype.checkRockToRemove = function(){
 
@@ -80,6 +88,11 @@ Game.prototype.checkRockToRemove = function(){
            if(rock.position.row === this.player.position.row && rock.position.column === this.player.position.column){
               $(this.selector(rock.position.row, rock)).addClass('explosion')
                 rock.impacted = true;
+                this.player.lifes--;
+
+                if(this.player.lifes === 0){
+                  this.gameOver();
+                }
             }
 
             if(rock.position.row > 24){
@@ -94,6 +107,7 @@ Game.prototype.checkRockToRemove = function(){
               }.bind(this))
 
         if(rock.impacted == true){
+          $('#explosion').get(0).play()
            this.removeAfterImpact(rock);  
         } else if (rock.outOfGrid === true){
           this.removeAfterOutOfGrid(rock);

@@ -2,6 +2,7 @@ function Player() {
   this.direction = "";
   this.position = { row: 23, column: 13 };
   this.laserShooted = [];
+  this.lifes = 3
 
   $(document).on('keydown',function(e){
     switch (e.keyCode) {
@@ -56,6 +57,7 @@ Player.prototype.shootLaser = function(){
   var laser  = new Laser(this.position.column);
   this.laserShooted.push(laser)
   setInterval(laser.move.bind(laser), 100)
+  $('#laser').get(0).play()
 }
 
 Player.prototype.checkRocksToRemove = function(){

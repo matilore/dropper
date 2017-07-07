@@ -1,5 +1,4 @@
 body {
-   background-image: url('./imgs/stars.gif')
 
 }
 
@@ -8,7 +7,13 @@ body {
    margin: 30px auto;
    width: 800px;
    border: 0.5px solid slategrey;
-   /*background-image: url('./imgs/stars.gif')*/
+   background-image: url('../imgs/stars.gif');
+ }
+
+ #board.scrolling {
+  -webkit-animation: scrolling;
+  animation: scrolling 3s linear infinite;
+  animation-duration: 3s linear infinite;
  }
 
  .cell {
@@ -16,30 +21,29 @@ body {
    height: 32px;
    width: 32px;
    box-sizing: border-box;
-   /*border: 1px solid rgba(255, 255, 255, 0.2);*/
  }
 
  .player {
-   background-image: url("./imgs/player.png");
+   background-image: url("../imgs/player.png");
    background-size: 30px 30px; 
    background-repeat: no-repeat;
    z-index: 1
  }
 
 .rock {
-   background-image: url("./imgs/rock.png");
+   background-image: url("../imgs/rock.png");
     background-size: cover; 
 
 }
 
 .laser {
-  background-image: url("./imgs/laser.png");
+  background-image: url("../imgs/laser.png");
   background-size: cover; 
 
 }
 
 .explosion {
-  background-image: url("./imgs/explosion.png");
+  background-image: url("../imgs/explosion.png");
   background-size: cover; 
 
 }
@@ -56,6 +60,20 @@ body {
   animation-duration: .1s;
 }
 
+#gameOver {
+  width: 95%;
+  margin: auto;
+  font-family: arcade;
+  font-size: 5em;
+  color: red;
+  position: relative;
+  top: 30%;
+}
+
+#gameOver h1 {
+  padding-left: 2%;
+}
+
 
 @keyframes right{
     from { background-position: left -10px bottom 0px}
@@ -64,4 +82,15 @@ body {
 @keyframes left{
     from { background-position: right -10px bottom 0px}
 	  to { background-position: right 5px bottom 0px}
+}
+
+@keyframes scrolling{
+    from { background-position: 0 -510px}
+	  to { background-position: 0 0}
+}
+
+
+@font-face {
+    font-family: arcade;
+    src: url(ARCADECLASSIC.TTF);
 }
