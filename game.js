@@ -101,13 +101,13 @@ Game.prototype.checkRockToRemove = function(){
 
         this.player.laserShooted.forEach(function(laser){
                 if(rock.position.row === laser.position.row && rock.position.column === laser.position.column){
-                  $(this.selector(rock.position.row, rock)).addClass('explosion')
+                  $(this.selector(rock.position.row, rock)).addClass('explosion');
+                  $('#explosion').get(0).play()
                   rock.impacted = true
                 }
               }.bind(this))
 
         if(rock.impacted == true){
-          $('#explosion').get(0).play()
            this.removeAfterImpact(rock);  
         } else if (rock.outOfGrid === true){
           this.removeAfterOutOfGrid(rock);
